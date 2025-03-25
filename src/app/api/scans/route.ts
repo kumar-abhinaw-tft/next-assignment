@@ -35,13 +35,13 @@ const scans = [
     id: "scan-006",
     date: "2024-11-07T10:30:00Z",
     status: "Failed",
-    results: "Some issue found",
+    results: "Some issues found",
   },
   {
     id: "scan-007",
     date: "2025-01-07T10:30:00Z",
     status: "Failed",
-    results: "Some issue found",
+    results: "Some issues found",
   },
   
 ];
