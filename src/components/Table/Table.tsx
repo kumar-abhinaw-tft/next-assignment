@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { getFormattedDate } from "@/util/helper";
 export interface TableProps{
     data:RowProps[]
 }
@@ -28,7 +29,7 @@ const ScanTable = ({data=[]}:TableProps)=>{
         <TableBody>
             {data.map((row, index)=>(
                         <Row
-                        date={row.date}
+                        date={getFormattedDate(row.date)}
                         status={row.status}
                         results={row.results}
                         id={row.id}

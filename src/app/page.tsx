@@ -38,7 +38,7 @@ export default function Home() {
       containerClassName='flex items-center justify-center h-[100%] top-[0] left-[0] w-full z-[9999] bg-[#32323280] '
       loaderClassName="h-12 w-12"
     />
-    <div className='flex p-[20px] gap-[10px] flex-col' >
+    <div className='flex p-[30px] gap-[6px] flex-col' >
       <div className='flex justify-end gap-10'>
        <Button onClick={getData}>Get New Scans</Button> <AddScanForm/>
       </div>

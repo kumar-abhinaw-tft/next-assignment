@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DialogBox from "../DilaogBox/DialogBox";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { sendRequest } from "@/util/helper";
 import { API_ENDPOINTS } from "@/util/constant";
 import Loader from "../Loader/Loader";
+import toast from "react-hot-toast";
 
 const AddScanForm = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -16,26 +17,43 @@ const AddScanForm = () => {
   const [scanResult, setResult] = useState<string>("");
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [isLoading, setLoading]= useState<boolean>(false)
-  const handleSubmit = async () => {
-    setLoading(true)
-    await sendRequest({
-      url: API_ENDPOINTS.GET_SCANS,
-      method: "POST",
-      body: {
-        id: scanId,
-        date: date,
-        status: scanStatus,
-        results: scanResult,
-      },
-    });
+  const handleReset = ()=>{
     setScanId("");
     setDate(new Date());
     setResult("");
     setStatus("");
-    setLoading(false);
-    setOpen(false)
-
+  }
+  const handleSubmit = async () => {
+    try{
+      if(!scanId || !date || !scanResult || !scanStatus){
+        toast.error("All fields are required.");
+        return;
+      }
+      setLoading(true)
+      const response  = await sendRequest({
+        url: API_ENDPOINTS.GET_SCANS,
+        method: "POST",
+        body: {
+          id: scanId,
+          date: date?.toISOString(),
+          status: scanStatus,
+          results: scanResult,
+        },
+      });
+      if(response.success){
+        handleReset();
+        setOpen(false);
+        toast.success(response.message)
+      }
+        setLoading(false);
+    }catch(error){
+      toast.error(error?.message || "Something went wrong, Please try again!")
+    }
   };
+
+  useEffect(()=>{
+    handleReset()
+  },[open])
 
   return (
     <DialogBox

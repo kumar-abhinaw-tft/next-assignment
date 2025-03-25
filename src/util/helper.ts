@@ -1,4 +1,5 @@
 import axios from "axios";
+import { format } from "date-fns";
 
 interface requestProps{
   url:string,
@@ -7,7 +8,7 @@ interface requestProps{
   params?: any,
   headers?:any,
 }
-export const sendRequest = async ({
+const sendRequest = async ({
   url,
   method = "GET",
   body,
@@ -38,3 +39,12 @@ export const sendRequest = async ({
     };
   }
 };
+
+const getFormattedDate = (date: string)=> {
+  return format(date, 'dd-MM-yyyy, hh:mm aa');
+}
+
+export {
+  sendRequest,
+  getFormattedDate,
+}
