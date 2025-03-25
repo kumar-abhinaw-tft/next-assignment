@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/366e7658-e328-4f43-a292-43f9378c6466)
 ## Getting Started
 
 To run the development server:
