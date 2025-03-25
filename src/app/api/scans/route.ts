@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-let scans = [
+const scans = [
   {
     id: "scan-001",
     date: "2024-05-01T12:00:00Z",
@@ -48,7 +48,11 @@ let scans = [
 
 // GET Request
 export async function GET() {
-  return NextResponse.json(scans);
+  const res = {
+    data:scans,
+    success:true,
+  }
+  return NextResponse.json(res, { status: 200 });
 }
 
 // POST Request

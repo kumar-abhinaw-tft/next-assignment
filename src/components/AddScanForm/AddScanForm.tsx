@@ -9,8 +9,10 @@ import { sendRequest } from "@/util/helper";
 import { API_ENDPOINTS } from "@/util/constant";
 import Loader from "../Loader/Loader";
 import toast from "react-hot-toast";
+import { useScanStore } from "@/app/stores/scanStore";
 
 const AddScanForm = () => {
+  const {fetchScans} = useScanStore()
   const [open, setOpen] = useState<boolean>(false);
   const [scanId, setScanId] = useState<string>("");
   const [scanStatus, setStatus] = useState<string>("");
@@ -41,9 +43,9 @@ const AddScanForm = () => {
         },
       });
       if(response.success){
-        handleReset();
         setOpen(false);
         toast.success(response.message)
+        fetchScans();
       }
         setLoading(false);
     }catch(error){
@@ -86,6 +88,18 @@ const AddScanForm = () => {
             </div>
             <div className="flex gap-10 w-full items-center">
             <Label className="whitespace-nowrap font-bold w-[110px]">
+                Scan Result
+            </Label>
+            <Input
+                value={scanResult}
+                className="w-full"
+                onChange={(event) => {
+                setResult(event.target.value);
+                }}
+            />
+            </div>
+            <div className="flex gap-10 w-full items-center">
+            <Label className="whitespace-nowrap font-bold w-[110px]">
                 Scan Date
             </Label>
             <div className="w-full">
@@ -104,22 +118,10 @@ const AddScanForm = () => {
                 }}
             />
             </div>
-            <div className="flex gap-10 w-full items-center">
-            <Label className="whitespace-nowrap font-bold w-[110px]">
-                Scan Result
-            </Label>
-            <Input
-                value={scanResult}
-                className="w-full"
-                onChange={(event) => {
-                setResult(event.target.value);
-                }}
-            />
-            </div>
             <div className="flex gap-5 justify-end">
             <Button
                 onClick={() => {
-                setOpen(false);
+                  setOpen(false);
                 }}
             >
                 Cancel
